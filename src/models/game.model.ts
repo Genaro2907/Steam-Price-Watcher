@@ -4,9 +4,12 @@ import { IGame } from "../interfaces/game.interface";
 const GameSchema = new Schema<IGame>(
     {
         title: String,
-        externalID: String,
+        externalID: { type: String, unique: true },
         thumb: String,
         cheapestPrice: Number,
+    },
+    {
+        timestamps: true
     }
 )
 

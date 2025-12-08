@@ -2,6 +2,7 @@ import { Router } from '@koa/router';
 import Koa from 'koa';
 import koaBody from 'koa-body';
 import { connectDB } from './database/mongo';
+import { Routes } from './routers/routers';
 
 const app = new Koa();
 const router = new Router();
@@ -20,7 +21,7 @@ router.get('/', (ctx) => {
     };
 }); 
 
-app.use(router.routes()).use(router.allowedMethods());
+Routes.init(app);
 
 const PORT = process.env.PORT || 3001;
 const startServer = async () => {
