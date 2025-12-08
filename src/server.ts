@@ -1,7 +1,7 @@
 import { Router } from '@koa/router';
 import Koa from 'koa';
 import koaBody from 'koa-body';
-// import { mongodb}
+import { connectDB } from './database/mongo';
 
 const app = new Koa();
 const router = new Router();
@@ -22,8 +22,13 @@ router.get('/', (ctx) => {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+const startServer = async () => {
+    await connectDB();
 
-app.listen(PORT, () => {
+    app.listen(PORT, () => {
     console.log(`🚀 Server rodando na porta ${PORT}`);
-})
+    })
+}
+
+startServer();
