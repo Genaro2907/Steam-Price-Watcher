@@ -1,11 +1,16 @@
-import { bodyParser } from '@koa/bodyparser';
 import { Router } from '@koa/router';
 import Koa from 'koa';
+import koaBody from 'koa-body';
+// import { mongodb}
 
 const app = new Koa();
 const router = new Router();
 
-app.use(bodyParser());
+app.use(koaBody({
+    multipart: true,
+    jsonLimit: '10mb',
+    formLimit: '10mb'
+}));
 
 router.get('/', (ctx) => {
     ctx.body = {
