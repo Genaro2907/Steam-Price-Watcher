@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mongo-steam:
+    image: mongo:latest
+    container_name: steam-mongo
+    restart: always
+    ports:
+      - "27019:27017"
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=admin  
+      - MONGO_INITDB_ROOT_PASSWORD=admin  
+    volumes: 
+      - mongo-data:/data/db
+  redis-steam:
+    image: redis:alpine
+    container_name: steam-redis
+    restart: always
+    ports:
+      - "6380:6379"
+    volumes: 
+      - redis-data:/data
+
+volumes:
+  mongo-data:
+  redis-data:

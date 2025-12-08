@@ -18,7 +18,7 @@ router.get('/', (ctx) => {
         version: '1.0.0',
         status: 'running'
     };
-});
+}); 
 
 app.use(router.routes()).use(router.allowedMethods());
 
