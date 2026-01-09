@@ -5,7 +5,7 @@ import { Context } from "koa";
 import z from "zod";
 
 export class GameController {
-    async serach(ctx: Context) {
+    async search(ctx: Context) {
         const { title } = ctx.query;
 
         if (!title || typeof title !== 'string') {
@@ -87,6 +87,9 @@ export class GameController {
                 thumb: data.thumb,
                 cheapestPrice: data.cheapestPrice
             })
+
+            ctx.status = 201;
+            ctx.body = savedGame;
             
         } catch (error) {
             ctx.body = {
