@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import z from "zod";
 
 const CheapSharkGameSchema = z.object({
-     gemeID: z.string(),
+     steamAppId: z.string(),
      external: z.string(),
      cheapest: z.string(),
      thumb: z.string().optional(),   

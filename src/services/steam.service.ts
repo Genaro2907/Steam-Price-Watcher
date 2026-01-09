@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import z from "zod";
 
 const SteamPriceSchema = z.object({
-    price_overvies: z.object({
+    price_overview: z.object({
         currency: z.string(),
         initial: z.number(),
         final: z.number(),
