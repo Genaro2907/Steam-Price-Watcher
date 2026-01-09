@@ -5,6 +5,5 @@ export class GameRouter {
     public static async routes(router: Router){
         router.get('/games/search', gameController.search.bind(gameController));
         router.post('/games/monitor', gameController.monitor.bind(gameController));
-
     }
 }

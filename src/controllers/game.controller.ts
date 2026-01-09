@@ -1,4 +1,5 @@
 import { gameRepository } from "@/repositories/game.repository";
+import { cacheService } from "@/services/cache.service";
 import { cheapSharkService } from "@/services/cheapShark.service";
 import { steamService } from "@/services/steam.service";
 import { Context } from "koa";
@@ -16,7 +17,22 @@ export class GameController {
             return;
         }
 
+        const cacheKey = `search:${title.toLowerCase().trim()}`;
+
         try {
+            console.time('Tempo Resposta');
+            const cachedResult = await cacheService.get(cacheKey);
+
+            if(cachedResult) {
+                console.log(`⚡ [CACHE HIT] Retornando dados do Redis para: "${title}"`);
+
+                ctx.body = cachedResult;
+
+                ctx.set('x-Cache', 'HIT');
+                console.timeEnd('Tempo Resposta');
+                return;
+            }
+            console.log(`🐢 [CACHE MISS] Buscando dados externos para: "${title}"`);
             const cheapSharkresults = await cheapSharkService.searchGames(title);
             
             const enrichedresults = await Promise.all(cheapSharkresults.map( async (game) => {
@@ -44,7 +60,13 @@ export class GameController {
                 return { ...game, currency: 'USD', priceSource: 'CheapShark (USD)' };
             }));
 
+            if(enrichedresults.length > 0) {
+                await cacheService.set(cacheKey, enrichedresults, 3600);
+            }
+
             ctx.body = enrichedresults;
+            ctx.set('X-Cache', 'MISS');
+            console.timeEnd('Tempo Resposta');
         } catch (error) {
             console.error('Erro no controller de busca: ', error);
             ctx.body = {
