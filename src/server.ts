@@ -12,15 +12,18 @@ app.use(koaBody({
     jsonLimit: '10mb',
     formLimit: '10mb'
 }));
-
-router.get('/', (ctx) => {
-    ctx.body = {
-        project: "Steam Price watcher API",
-        version: '1.0.0',
-        status: 'running'
-    };
-}); 
  
+const rootRouter = new Router();
+rootRouter.get('/', (ctx) => {
+    ctx.body = {
+        project: "Steam Price Watcher API",
+        version: '1.0.0',
+        status: 'running',
+        docs: '/api/v1/games/search'
+    };
+});
+app.use(rootRouter.routes());
+
 Routes.init(app);
 
 const PORT = process.env.PORT || 3001;
