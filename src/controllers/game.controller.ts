@@ -20,7 +20,7 @@ export class GameController {
             const cheapSharkresults = await cheapSharkService.searchGames(title);
             
             const enrichedresults = await Promise.all(cheapSharkresults.map( async (game) => {
-                if(!game.steamAppId) {
+                if(!game.steamAppID) {
                     return {
                         ...game,
                         priceSource: 'CheapShark (USD)',
@@ -28,7 +28,7 @@ export class GameController {
                     }
                 } 
 
-                const steamData = await steamService.getGamePriceInBRL(game.steamAppId);
+                const steamData = await steamService.getGamePriceInBRL(game.steamAppID);
 
                 if(steamData && steamData.price_overview) {
                     return {

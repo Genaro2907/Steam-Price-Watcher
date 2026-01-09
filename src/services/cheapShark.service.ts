@@ -2,10 +2,11 @@ import axios, { AxiosInstance } from "axios";
 import z from "zod";
 
 const CheapSharkGameSchema = z.object({
-     steamAppId: z.string(),
-     external: z.string(),
-     cheapest: z.string(),
-     thumb: z.string().optional(),   
+    external: z.string(),
+    gameID: z.string(),
+    cheapest: z.string(),
+    thumb: z.string().optional(),  
+    steamAppID: z.string().nullable().optional() 
 });
 
 export type CheapSharkGameResponse = z.infer<typeof CheapSharkGameSchema>;
@@ -16,7 +17,7 @@ export class CheapSharkService {
 
     constructor() {
         this.http = axios.create({
-            baseURL: 'httos://www.cheapshark.com/api/1.0',
+            baseURL: 'https://www.cheapshark.com/api/1.0',
             timeout: 5000
         });
     }
