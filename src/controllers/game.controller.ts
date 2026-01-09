@@ -61,6 +61,7 @@ export class GameController {
             externalID: z.string()
                 .min(1, "O ID externo é obrigatório"),
             thumb: z.string().optional().default(''),
+            steamAppID: z.string().nullable().optional(),
             cheapestPrice: z.union([z.string(), z.number()])
                 .transform((val) => Number(val)),
         })
@@ -84,6 +85,7 @@ export class GameController {
             const savedGame = await gameRepository.saveOrUpdate({
                 title: data.title,
                 externalID: data.externalID,
+                steamAppID: data.steamAppID || undefined,
                 thumb: data.thumb,
                 cheapestPrice: data.cheapestPrice
             })

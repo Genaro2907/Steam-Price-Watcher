@@ -6,11 +6,16 @@ export class GameRepository {
         return await GameModel.findOne({ externalID }).exec();
     }
 
+    async findAll(): Promise<IGame[]> {
+        return await GameModel.find({}).exec();
+    }
+
     async saveOrUpdate(gameData: {
         title: string;
         externalID: string;
+        steamAppID?: string;
         thumb: string;
-        cheapestPrice: number
+        cheapestPrice: number;
     }): Promise<IGame> {
         return await GameModel.findOneAndUpdate(
             {externalID: gameData.externalID },
@@ -18,6 +23,7 @@ export class GameRepository {
                 $set: {
                     title: gameData.title,
                     thumb: gameData.thumb,
+                    steamAppID: gameData.steamAppID,
                     cheapestPrice: gameData.cheapestPrice,
                 }
             },

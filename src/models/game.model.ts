@@ -6,6 +6,7 @@ const GameSchema = new Schema<IGame>(
         title: String,
         externalID: { type: String, unique: true },
         thumb: String,
+        steamAppID: String,
         cheapestPrice: Number,
     },
     {

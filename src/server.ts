@@ -3,6 +3,7 @@ import Koa from 'koa';
 import koaBody from 'koa-body';
 import { connectDB } from './database/mongo';
 import { Routes } from './routers/routers';
+import { UpdatePricesJob } from './jobs/updatePrices.job';
 
 const app = new Koa();
 const router = new Router();
@@ -25,6 +26,7 @@ rootRouter.get('/', (ctx) => {
 app.use(rootRouter.routes());
 
 Routes.init(app);
+UpdatePricesJob.init();
 
 const PORT = process.env.PORT || 3001;
 const startServer = async () => {
