@@ -4,9 +4,11 @@ import koaBody from 'koa-body';
 import { connectDB } from './database/mongo';
 import { Routes } from './routers/routers';
 import { UpdatePricesJob } from './jobs/updatePrices.job';
+import cors from '@koa/cors';
 
 const app = new Koa();
-const router = new Router();
+
+app.use(cors());
 
 app.use(koaBody({
     multipart: true,

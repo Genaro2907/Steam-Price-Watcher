@@ -134,6 +134,18 @@ export class GameController {
             ctx.status = 500;
         }
     }
+    
+    async list(ctx: Context) {
+        try {
+            const games = await gameRepository.findAll();
+            ctx.status = 200;
+            ctx.body = games;
+        } catch (error) {
+            console.error(error);
+            ctx.status = 500;
+            ctx.body = { error: 'Erro ao buscar lista de jogos' };
+        }
+    }
 }
 
 export const gameController = new GameController();
