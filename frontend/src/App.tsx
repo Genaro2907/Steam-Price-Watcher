@@ -1,34 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Button } from "@/components/ui/button"
+import { Gamepad2 } from "lucide-react"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center gap-6">
+      
+      <div className="text-center space-y-2">
+        <h1 className="text-4xl font-bold text-white tracking-tight flex items-center gap-3">
+          <Gamepad2 className="h-10 w-10 text-emerald-400" />
+          Steam Price Watcher
+        </h1>
+        <p className="text-slate-400">
+          Seu monitor de preços favorito.
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+      <div className="flex gap-4">
+        <Button variant="default" size="lg" className="bg-emerald-500 hover:bg-emerald-600">
+          Começar Agora
+        </Button>
+        
+        <Button variant="outline" size="lg" className="text-white border-slate-700 hover:bg-slate-800">
+          Login
+        </Button>
+      </div>
+
+    </div>
   )
 }
 
