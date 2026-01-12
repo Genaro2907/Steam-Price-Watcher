@@ -5,7 +5,7 @@ import { CronJob } from "cron";
 import dayjs from "dayjs";
 
 export class UpdatePricesJob {
-    private static readonly CRON_TIME = '*/1 * * * *';
+    private static readonly CRON_TIME = '*/99 * * * *';
 
     public static init() {
         console.log('🕰️ [Job] Agendador de preços inicializado.');
