@@ -1,10 +1,11 @@
 import { gameRepository } from "@/repositories/game.repository";
+import { priceHistoryRepository } from "@/repositories/price-history.repository";
 import { steamService } from "@/services/steam.service";
 import { CronJob } from "cron";
 import dayjs from "dayjs";
 
 export class UpdatePricesJob {
-    private static readonly CRON_TIME = '*/99 * * * *';
+    private static readonly CRON_TIME = '*/1 * * * *';
 
     public static init() {
         console.log('🕰️ [Job] Agendador de preços inicializado.');
@@ -50,6 +51,10 @@ export class UpdatePricesJob {
                             thumb: game.thumb,
                             cheapestPrice: currentPrice
                         });
+
+                         await priceHistoryRepository.create(game._id.toString(), currentPrice);
+                         console.log(`📜 [HISTÓRICO] Preço de R$ ${currentPrice} arquivado.`);
+                         
                     } else {
                         console.log(`✅ [SEM MUDANÇA] ${game.title} continua R$ ${currentPrice}`);
 
