@@ -87,7 +87,13 @@ export class GameController {
             cheapestPrice: z.union([z.string(), z.number()])
                 .transform((val) => Number(val)),
         })
-
+        const user = ctx.state.user;
+        if(!user) {
+            ctx.status = 401;
+            ctx.body = {
+                error: "Usuário não autenticado."
+            }
+        }
         const body = ctx.request.body;
         const validation = MonitorGameSchema.safeParse(body);
 
@@ -109,13 +115,19 @@ export class GameController {
                 externalID: data.externalID,
                 steamAppID: data.steamAppID || undefined,
                 thumb: data.thumb,
-                cheapestPrice: data.cheapestPrice
+                cheapestPrice: data.cheapestPrice,
+                userId: user._id
             })
 
             ctx.status = 201;
             ctx.body = savedGame;
             
-        } catch (error) {
+        } catch (error: any) {
+            if (error.code === 11000) {
+                ctx.status = 409;
+                ctx.body = { error: "Você já está monitorando este jogo." };
+                return;
+            }
             ctx.body = {
                 error: 'Erro interno ao salvar monitoramento.'
             };

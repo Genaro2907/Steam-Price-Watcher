@@ -1,4 +1,5 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
+import { IUser } from "./user.interface";
 
 export interface IGame extends Document {
     title: string;
@@ -6,6 +7,7 @@ export interface IGame extends Document {
     thumb: string;
     steamAppID?: string;
     cheapestPrice: number;
+    user: Types.ObjectId | IUser;
     createdAt: Date;
     updatedAt: Date;
 }

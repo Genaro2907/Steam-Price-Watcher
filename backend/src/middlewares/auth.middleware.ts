@@ -8,7 +8,7 @@ interface TokenPayload {
     exp: number;
 }
 
-export class AusthMiddleware {
+export class AuthMiddleware {
     public static async verifyToken (ctx: Context, next: Next) {
         const authHeader = ctx.header.authorization;
 

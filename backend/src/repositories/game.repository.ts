@@ -16,15 +16,20 @@ export class GameRepository {
         steamAppID?: string;
         thumb: string;
         cheapestPrice: number;
+        userId: string;
     }): Promise<IGame> {
         return await GameModel.findOneAndUpdate(
-            {externalID: gameData.externalID },
+            {
+                externalID: gameData.externalID,
+                user: gameData.userId
+             },
             {
                 $set: {
                     title: gameData.title,
                     thumb: gameData.thumb,
                     steamAppID: gameData.steamAppID,
                     cheapestPrice: gameData.cheapestPrice,
+                    userId: gameData.userId
                 }
             },
             {
