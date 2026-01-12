@@ -6,7 +6,7 @@ import { Context } from "koa";
 import z from "zod";
 
 export class GameController {
-    async search(ctx: Context) {
+    async search(ctx: Context, next: Function) {
         const { title } = ctx.query;
 
         if (!title || typeof title !== 'string') {
@@ -76,7 +76,7 @@ export class GameController {
         }
     }
 
-    async monitor(ctx: Context) {
+    async monitor(ctx: Context, next: Function) {
         const MonitorGameSchema = z.object({
             title: z.string()
                 .min(1, "O título é obrigatório"),
