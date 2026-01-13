@@ -2,6 +2,7 @@ import { gameRepository } from "@/repositories/game.repository";
 import { cacheService } from "@/services/cache.service";
 import { cheapSharkService } from "@/services/cheapShark.service";
 import { steamService } from "@/services/steam.service";
+import { error } from "console";
 import { Context } from "koa";
 import z from "zod";
 
@@ -135,15 +136,58 @@ export class GameController {
         }
     }
     
-    async list(ctx: Context) {
+    async listMyGames(ctx: Context) {
+        const user = ctx.state.user;
+        if(!user) {
+            ctx.status = 401
+            return;
+        }
+
         try {
-            const games = await gameRepository.findAll();
+            const games = await gameRepository.findAllByUser(user._id.toString());
             ctx.status = 200;
             ctx.body = games;
         } catch (error) {
             console.error(error);
             ctx.status = 500;
             ctx.body = { error: 'Erro ao buscar lista de jogos' };
+        }
+    }
+
+    async stopMonitoring(ctx: Context, next: Function) {
+        const user = ctx.state.user;
+        const { externalID } = ctx.params;
+
+        if(!externalID) {
+            ctx.status = 400;
+            ctx.body = {
+                error: 'ID do jogo é obrigatório'
+            }
+            return;
+        }
+
+        try {
+            const deleted = await gameRepository.deleteByUser(externalID, user._id.toString());
+
+            if(!deleted) {
+                ctx.status = 404;
+                ctx.body = {
+                    error: "Jogo não encontrado na sua lista."
+                };
+                return;
+            }
+
+            ctx.status = 200;
+            ctx.body = {
+                message: "Monitoramento removido com sucesso."
+            }
+            
+        } catch (error) {
+            console.error('Erro ao deletar jogo: ', error);
+            ctx.status = 500;
+            ctx.body = {
+                error: "Erro interno ao remover jogo."
+            };
         }
     }
 }
