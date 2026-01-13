@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom
 import { AuthProvider, useAuth } from "./context/AuthContext"
 import { Login } from "./pages/Login";
 import { Home } from "./pages/Home";
+import { Toaster } from "@/components/ui/toaster";
 
 const PrivateRoutes = () => {
   const { signed, loading } = useAuth();
@@ -27,6 +28,7 @@ export default function AppRouter() {
                         {/* Futuramente: <Route path="/game/new" element={<CreateGame />} /> */}  
                     </Route> 
                 </Routes>
+                <Toaster />
             </AuthProvider>
         </BrowserRouter>
     )

@@ -5,12 +5,13 @@ import { useAuth } from "@/context/AuthContext";
 import { Label } from "@radix-ui/react-label";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 export function Login() {
     const [email, setEmail] = useState('');
     const [ password, setPassword] = useState('');
     const [error, setError] = useState('');
-
+    const { toast } = useToast();
     const { signIn } = useAuth();
     const navigate = useNavigate();
 
@@ -20,6 +21,10 @@ export function Login() {
 
         try {
             await signIn(email, password);
+            toast({
+                title: "Usuário Logado com sucesso!",
+                description: `Seja Bem vindo!.`
+            })
             navigate('/');
         }catch(err) {
             console.error(err);

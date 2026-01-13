@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreateGameModal } from "@/components/CreateGameModal";
 import { Trash2 } from "lucide-react"; 
+import { useToast } from "@/hooks/use-toast";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,6 +23,7 @@ export function Home() {
   const { signOut, user } = useAuth();
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   async function loadGames() {
     try {
@@ -38,10 +40,18 @@ export function Home() {
     try {
       await api.delete(`/v1/games/${externalID}`);
       setGames((oldGames) => oldGames.filter(game => game.externalID !== externalID));
-      
+      toast({
+        title: "Jogo removido",
+        description: "Voce parou de monitorar esse jogo com sucesso.",
+        className: "bg-green-500 text-white-border-none",
+      })
     } catch (error) {
       console.error("Erro ao remover jogo", error);
-      alert("Erro ao remover monitoramento.");
+      toast({
+        variant: "destructive",
+        title: "Erro ao remover",
+        description: "Não foi possivel remover o jogo. Tente novamente."
+      })
     }
   }
 

@@ -15,6 +15,7 @@ import { Label } from "@radix-ui/react-label";
 import { AlertCircle, Loader2, Plus, Search } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { AxiosError } from "axios";
+import { useToast } from "@/hooks/use-toast";
 
 export function CreateGameModal({ onSuccess }: CreateGameModalProps) {
     const [open, setOpen] = useState(false);
@@ -24,7 +25,8 @@ export function CreateGameModal({ onSuccess }: CreateGameModalProps) {
     const [loadingSearch, setLoadingSearch] = useState(false);
     const [loadingAdd, setLoadingAdd] = useState<string | null>(null);
     const [errorMsg, setErrorMsg] = useState("");
-
+    const { toast } = useToast();
+    
     async function handleSearch(e: React.FormEvent) {
         e.preventDefault();
         if(!searchTerm.trim()) return;
@@ -65,6 +67,12 @@ export function CreateGameModal({ onSuccess }: CreateGameModalProps) {
             setSearchTerm("");
             setResults([]);
             onSuccess();
+
+            toast({
+                title: "Jogo Adicionado! 🎮",
+                description: `Agora estamos de olho no preço de ${game.external}.`,
+                className: "bg-green-600 text-white border-none",
+            });
         } catch (error) {
             const err = error as AxiosError;
 
@@ -73,6 +81,13 @@ export function CreateGameModal({ onSuccess }: CreateGameModalProps) {
             } else {
                 setErrorMsg("Erro ao adicionar o jogo. Tente novamente.");
             }
+            toast({
+                variant: "destructive",
+                title: "Ops!",
+                description: err.response?.status === 409 
+                    ? "Você já monitora este jogo." 
+                    : "Erro ao conectar com o servidor.",
+            });
         } finally {
             setLoadingAdd(null)
         }
