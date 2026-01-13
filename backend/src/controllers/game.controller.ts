@@ -2,7 +2,6 @@ import { gameRepository } from "@/repositories/game.repository";
 import { cacheService } from "@/services/cache.service";
 import { cheapSharkService } from "@/services/cheapShark.service";
 import { steamService } from "@/services/steam.service";
-import { error } from "console";
 import { Context } from "koa";
 import z from "zod";
 

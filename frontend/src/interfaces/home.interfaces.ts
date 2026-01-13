@@ -4,7 +4,8 @@ export interface Game {
     cheapestPrice: number;
     thumb: string;
     steamUrl: string;
-    steamAppID: number
+    steamAppID: number;
+    externalID: string;
 }
 
 
