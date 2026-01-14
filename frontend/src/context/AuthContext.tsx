@@ -1,4 +1,4 @@
-import { AuthContextData, AuthResponse } from "@/interfaces/auth.interfaces";
+import { AuthContextData, AuthResponse, SignUpData } from "@/interfaces/auth.interfaces";
 import api from "@/services/api";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
@@ -35,13 +35,24 @@ export const AuthProvider = ({ children}: { children: ReactNode }) => {
         setUser(user);
     }
 
+    async function signUp(data: SignUpData) {
+        const response = await api.post<AuthResponse>('/auth/register', data);
+
+        const { token, user} = response.data;
+
+        localStorage.setItem('steam-watcher-token', token);
+        localStorage.setItem('steam-watcher-user', JSON.stringify(user));
+
+        setUser(user);
+    }
+
     function signOut() {
         localStorage.clear();
         setUser(null);
     }
 
     return (
-        <AuthContext.Provider value={{signed: !!user, user, signIn, signOut, loading }}>
+        <AuthContext.Provider value={{signed: !!user, user, signIn, signUp , signOut, loading }}>
             {children}
         </AuthContext.Provider>
     );

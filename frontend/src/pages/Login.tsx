@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
+import { RegisterModal } from "@/components/RegisterModal";
 
 export function Login() {
     const [email, setEmail] = useState('');
@@ -96,6 +97,10 @@ export function Login() {
                             )}
                         </Button>
                     </form>
+
+                    <div className="mt-4 text-center">
+                        <RegisterModal />
+                    </div>
                 </CardContent>
             </Card>
         </div>
