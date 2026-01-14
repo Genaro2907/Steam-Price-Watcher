@@ -83,14 +83,17 @@ export function Home() {
       <aside className="w-64 bg-white dark:bg-slate-900 border-r dark:border-slate-800 flex flex-col fixed h-full z-10 hidden md:flex">
         {/* Logo Area */}
         <div className="p-6 flex flex-col items-center border-b dark:border-slate-800">
-          <img 
+        <img 
             src={logo} 
             alt="Logo RareFind" 
-            className="h-20 w-auto object-contain mb-3 drop-shadow-sm" 
-          />
-          <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100">
-            RareFind
-          </h1>
+            // Ajustei para h-20 (um pouco menor) para dar respiro
+            className="h-20 w-auto object-contain mb-3 drop-shadow-sm hover:scale-105 transition-transform duration-300" 
+        />
+        
+        {/* Tagline discreta */}
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 text-center uppercase tracking-widest">
+            Seu Monitor de Preços!
+        </p>
         </div>
 
         {/* Menu Links */}
