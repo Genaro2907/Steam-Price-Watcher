@@ -18,6 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export function Home() {
   const { signOut, user } = useAuth();
@@ -67,15 +68,20 @@ export function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b px-6 py-4 flex justify-between items-center shadow-sm">
-        <div>
-          <h1 className="text-xl font-bold text-slate-800">Steam Price Watcher</h1>
-          <p className="text-sm text-slate-500">Olá, {user?.name}</p>
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <header className="bg-white dark:bg-slate-900 border-b dark:border-slate-800 px-6 py-4 flex justify-between items-center shadow-sm">
+            <div>
+                <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100">Steam Price Watcher</h1>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Olá, {user?.name}</p>
+            </div>
+        
+        <div className="flex items-center gap-4">
+          <ModeToggle /> {/* <--- O SOLZINHO ESTÁ AQUI */}
+          
+          <Button variant="outline" onClick={signOut}>
+            Sair
+          </Button>
         </div>
-        <Button variant="outline" onClick={signOut}>
-          Sair
-        </Button>
       </header>
 
       <main className="container mx-auto p-6">

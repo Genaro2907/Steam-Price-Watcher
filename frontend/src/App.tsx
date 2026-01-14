@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext"
 import { Login } from "./pages/Login";
 import { Home } from "./pages/Home";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider"
 
 const PrivateRoutes = () => {
   const { signed, loading } = useAuth();
@@ -16,20 +17,22 @@ const PrivateRoutes = () => {
 export default function AppRouter() {
     return (
         <BrowserRouter>
-            <AuthProvider>
-                <Routes>
-                    {/* Rotas Publicas */}
-                    <Route path="/login" element={<Login />} />
+            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+                <AuthProvider>
+                    <Routes>
+                        {/* Rotas Publicas */}
+                        <Route path="/login" element={<Login />} />
 
-                    {/* Rotas Privadas */}
-                    <Route element={<PrivateRoutes />}>
-                        {/* Aqui você coloca o componente que antes era o seu App principal (Dashboard) */}
-                        <Route path="/" element={<Home />} />  
-                        {/* Futuramente: <Route path="/game/new" element={<CreateGame />} /> */}  
-                    </Route> 
-                </Routes>
-                <Toaster />
-            </AuthProvider>
+                        {/* Rotas Privadas */}
+                        <Route element={<PrivateRoutes />}>
+                            {/* Aqui você coloca o componente que antes era o seu App principal (Dashboard) */}
+                            <Route path="/" element={<Home />} />  
+                            {/* Futuramente: <Route path="/game/new" element={<CreateGame />} /> */}  
+                        </Route> 
+                    </Routes>
+                    <Toaster />
+                </AuthProvider>
+            </ThemeProvider>
         </BrowserRouter>
     )
 }
