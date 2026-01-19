@@ -1,4 +1,4 @@
-import { Theme, ThemeProviderProps, ThemeProviderState } from "@/interfaces/theme.interfacaes";
+import { Theme, ThemeProviderProps, ThemeProviderState } from "@/interfaces/theme.interfaces";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const initialState: ThemeProviderState = {
