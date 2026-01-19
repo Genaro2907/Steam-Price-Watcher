@@ -5,6 +5,7 @@ import { connectDB } from './database/mongo';
 import { Routes } from './routers/routers';
 import { UpdatePricesJob } from './jobs/updatePrices.job';
 import cors from '@koa/cors';
+import { TrendingDealsJob } from './jobs/trending.job';
 
 const app = new Koa();
 
@@ -29,6 +30,7 @@ app.use(rootRouter.routes());
 
 Routes.init(app);
 UpdatePricesJob.init();
+TrendingDealsJob.init();
 
 const PORT = process.env.PORT || 3001;
 const startServer = async () => {

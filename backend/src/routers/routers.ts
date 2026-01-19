@@ -4,6 +4,7 @@ import { GameRouter } from './games.router';
 import { AuthRouter } from './auth.router';
 import { AuthMiddleware } from '@/middlewares/auth.middleware';
 import { UserRouter } from './user.router';
+import { DealRouter } from './deal.router';
 
 export class Routes {
     static init(server: koa) {
@@ -18,6 +19,7 @@ export class Routes {
         
         GameRouter.routes(router);
         UserRouter.routes(router);
+        DealRouter.routes(router);
 
         server.use(router.routes());
         server.use(router.allowedMethods());
