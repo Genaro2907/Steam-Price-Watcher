@@ -2,23 +2,20 @@
 
 Uma aplicação **Fullstack** para monitoramento de preços de jogos, combinando uma API de alta performance com uma interface moderna e responsiva.
 
-## 🚀 Tecnologias
+## 🛠️ Stack Tecnológica
 
-### Backend (API)
-- **Node.js (v22) & TypeScript**
-- **Koa** (Web Framework leve e performático)
-- **MongoDB & Mongoose** (Banco de dados NoSQL)
-- **Redis** (Cache-Aside Strategy - TTL 1h)
-- **JWT (JSON Web Tokens)** (Autenticação Segura)
-- **Zod** (Validação de Schemas)
-- **Cron Jobs** (Workers em background para atualização de preços)
+### **Backend**
+![Node.js](https://img.shields.io/badge/Node.js-22-339933?logo=nodedotjs)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript)
+![Koa](https://img.shields.io/badge/Koa-2.15-333333?logo=koajs)
+![MongoDB](https://img.shields.io/badge/MongoDB-7.0-47A248?logo=mongodb)
+![Redis](https://img.shields.io/badge/Redis-7.0-DC382D?logo=redis)
+![JWT](https://img.shields.io/badge/JWT-Authentication-000000?logo=jsonwebtokens)
 
-### Frontend (Interface)
-- **React 19 & Vite**
-- **TypeScript**
-- **TailwindCSS** (Estilização utilitária)
-- **shadcn/ui** (Componentes de interface reutilizáveis)
-- **Axios** (Integração com API)
+### **Frontend**
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?logo=vite)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?logo=tailwindcss)
 
 ### Infraestrutura
 - **Docker & Docker Compose** (MongoDB e Redis containerizados)
@@ -93,6 +90,17 @@ Autenticação 🔐
 | POST | `/api/v1/auth/signup` | Cria uma nova conta de usuário
 | POST | `/api/v1/auth/signin` | Realiza login e retorna o Token JWT
 
+#### Registrar Usuário
+```http
+POST /api/v1/auth/signup
+Content-Type: application/json
+
+{
+  "name": "João Silva",
+  "email": "joao@email.com",
+  "password": "senhaSegura123"
+}
+```
 ### Jogos 🎮
 Requer Header `Authorization: Bearer <TOKEN>`
 | Método | Rota | Descrição
